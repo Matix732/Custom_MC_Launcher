@@ -74,7 +74,15 @@ class UrlValidator : public QValidator {
 ImportPage::ImportPage(NewInstanceDialog* dialog, QWidget* parent) : QWidget(parent), ui(new Ui::ImportPage), dialog(dialog)
 {
     ui->setupUi(this);
+    
+    // Hardcode the modpack URL here!
+    QString myModpackUrl = "https://example.com/moj_modpack.zip"; 
+    
     ui->modpackEdit->setValidator(new UrlValidator(ui->modpackEdit));
+    ui->modpackEdit->setText(myModpackUrl);
+    ui->modpackEdit->setReadOnly(true); // Prevent user from altering it
+    ui->modpackBtn->setVisible(false); // Hide the "Browse" button
+    
     connect(ui->modpackEdit, &QLineEdit::textChanged, this, &ImportPage::updateState);
 }
 
