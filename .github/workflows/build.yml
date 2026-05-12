@@ -4,6 +4,8 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+
+
 on:
   merge_group:
     types: [checks_requested]
@@ -102,6 +104,11 @@ jobs:
       ##
       # SETUP
       ##
+
+      - name: Install Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y extra-cmake-modules
 
       - name: Checkout
         uses: actions/checkout@v6
