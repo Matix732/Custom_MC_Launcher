@@ -103,6 +103,8 @@
 #include "ui/dialogs/IconPickerDialog.h"
 #include "ui/dialogs/ImportResourceDialog.h"
 #include "ui/dialogs/NewInstanceDialog.h"
+#include "InstanceImportTask.h"
+#include <QTimer>
 #include "ui/dialogs/NewsDialog.h"
 #include "ui/dialogs/ProgressDialog.h"
 #include "ui/dialogs/skins/SkinManageDialog.h"
@@ -258,6 +260,7 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
     {
         // you can't set QKeySequence::StandardKey shortcuts in qt designer >:(
         ui->actionAddInstance->setShortcut(QKeySequence::New);
+        ui->actionAddInstance->setVisible(false); // Ukryj przycisk dodawania instancji!
         ui->actionSettings->setShortcut(QKeySequence::Preferences);
         ui->actionUndoTrashInstance->setShortcut(QKeySequence::Undo);
         ui->actionDeleteInstance->setShortcuts({ QKeySequence(tr("Backspace")), QKeySequence::Delete });
@@ -434,6 +437,24 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
     view->setFocus();
 
     retranslateUi();
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // Automatycznie pobierz naszą paczkę, jeżeli uzytkownik nie ma żadnej zainstalowanej instancji!
+    QTimer::singleShot(500, this, [this]() {
+        if (APPLICATION->instances()->count() == 0) {
+            QString myModpackUrl = "https://drive.google.com/file/d/1CW3qmrIryZPwXgcJD4DIKjF65q6mmMX2/view?usp=sharing"; 
+            QUrl downloadUrl(myModpackUrl);
+            
+            InstanceImportTask* creationTask = new InstanceImportTask(downloadUrl, this, QMap<QString, QString>());
+            creationTask->setName("Mój Serwer");
+            creationTask->setGroup("");
+            creationTask->setIcon("default");
+
+            if (creationTask) {
+                instanceFromInstanceTask(creationTask);
+            }
+        }
+    });
+
 }
 
 // macOS always has a native menu bar, so these fixes are not applicable

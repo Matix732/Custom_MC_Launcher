@@ -163,12 +163,12 @@ endif()
 
 option(BUILD_TESTING "Build the testing tree." ON)
 
-find_package(ECM NO_MODULE REQUIRED)
-set(CMAKE_MODULE_PATH "${ECM_MODULE_PATH};${CMAKE_MODULE_PATH}")
-
-include(CTest)
-include(ECMAddTests)
 if(BUILD_TESTING)
+    find_package(ECM NO_MODULE REQUIRED)
+    set(CMAKE_MODULE_PATH "${ECM_MODULE_PATH};${CMAKE_MODULE_PATH}")
+
+    include(CTest)
+    include(ECMAddTests)
     enable_testing()
 endif()
 
@@ -346,7 +346,7 @@ include(ECMQtDeclareLoggingCategory)
 
 ####################################### Program Info #######################################
 
-set(Launcher_APP_BINARY_NAME "prismlauncher" CACHE STRING "Name of the Launcher binary")
+set(Launcher_APP_BINARY_NAME "mtsmp" CACHE STRING "Name of the Launcher binary")
 add_subdirectory(program_info)
 
 ####################################### Install layout #######################################
