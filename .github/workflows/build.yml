@@ -107,8 +107,12 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          sudo apt-get update
-          sudo apt-get install -y extra-cmake-modules
+          if [[ "${{ runner.os }}" == "Linux" ]]; then
+            sudo apt-get update
+            sudo apt-get install -y extra-cmake-modules
+          elif [[ "${{ runner.os }}" == "Windows" ]]; then
+            echo "Skipping dependency installation on Windows"
+          fi
 
       - name: Install ECM
         if: runner.os == 'Linux'
