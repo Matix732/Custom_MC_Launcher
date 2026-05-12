@@ -4,8 +4,6 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
-
-
 on:
   merge_group:
     types: [checks_requested]
@@ -104,21 +102,6 @@ jobs:
       ##
       # SETUP
       ##
-
-      - name: Install Dependencies
-        run: |
-          if [[ "${{ runner.os }}" == "Linux" ]]; then
-            sudo apt-get update
-            sudo apt-get install -y extra-cmake-modules
-          elif [[ "${{ runner.os }}" == "Windows" ]]; then
-            echo "Skipping dependency installation on Windows"
-          fi
-
-      - name: Install ECM
-        if: runner.os == 'Linux'
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y extra-cmake-modules
 
       - name: Checkout
         uses: actions/checkout@v6
