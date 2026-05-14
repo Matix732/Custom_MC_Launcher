@@ -444,7 +444,7 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
     // Automatycznie pobierz naszą paczkę, jeżeli uzytkownik nie ma żadnej zainstalowanej instancji!
     QTimer::singleShot(500, this, [this]() {
         if (APPLICATION->instances()->count() == 0) {
-            QString myModpackUrl = "https://drive.google.com/file/d/1PMMLqT7TrT4up01WtbUAeYrhKD5oXibh/view?usp=sharing";
+            QString myModpackUrl = "https://drive.google.com/uc?export=download&id=1PMMLqT7TrT4up01WtbUAeYrhKD5oXibh";
             QUrl downloadUrl(myModpackUrl);
 
             InstanceImportTask* creationTask = new InstanceImportTask(downloadUrl, this, QMap<QString, QString>());
