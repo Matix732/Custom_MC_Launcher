@@ -445,7 +445,7 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
             QUrl downloadUrl(myModpackUrl);
             
             InstanceImportTask* creationTask = new InstanceImportTask(downloadUrl, this, QMap<QString, QString>());
-            creationTask->setName("MTcube smp");
+            creationTask->setName("MTcube SMP");
             creationTask->setGroup("");
             creationTask->setIcon("default");
 
