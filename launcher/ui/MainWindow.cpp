@@ -582,19 +582,8 @@ void MainWindow::showInstanceContextMenu(const QPoint& pos)
         QAction* actionVoid = new QAction(group.isNull() ? BuildConfig.LAUNCHER_DISPLAYNAME : group, this);
         actionVoid->setEnabled(false);
 
-        QAction* actionCreateInstance = new QAction(tr("&Create instance"), this);
-        actionCreateInstance->setToolTip(ui->actionAddInstance->toolTip());
-        if (!group.isNull()) {
-            QVariantMap instance_action_data;
-            instance_action_data["group"] = group;
-            actionCreateInstance->setData(instance_action_data);
-        }
-
-        connect(actionCreateInstance, &QAction::triggered, this, &MainWindow::on_actionAddInstance_triggered);
-
         actions.prepend(actionSep);
         actions.prepend(actionVoid);
-        actions.append(actionCreateInstance);
         if (!group.isNull()) {
             QAction* actionDeleteGroup = new QAction(tr("&Delete group"), this);
             connect(actionDeleteGroup, &QAction::triggered, this, [this, group] { deleteGroup(group); });
