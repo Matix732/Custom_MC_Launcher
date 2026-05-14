@@ -214,6 +214,9 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
         exportInstanceMenu->addAction(ui->actionExportInstanceMrPack);
         exportInstanceMenu->addAction(ui->actionExportInstanceFlamePack);
         ui->actionExportInstance->setMenu(exportInstanceMenu);
+
+            ui->actionFoldersButton->setVisible(false);
+            ui->actionHelpButton->setVisible(false);
     }
 
     // hide, disable and show stuff
@@ -223,7 +226,7 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
         ui->actionDISCORD->setVisible(!BuildConfig.DISCORD_URL.isEmpty());
         ui->actionREDDIT->setVisible(!BuildConfig.SUBREDDIT_URL.isEmpty());
 
-        ui->actionCheckUpdate->setVisible(APPLICATION->updaterEnabled());
+            ui->actionCheckUpdate->setVisible(false);
 
 #ifndef Q_OS_MAC
         ui->actionAddToPATH->setVisible(false);
@@ -441,11 +444,11 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
     // Automatycznie pobierz naszą paczkę, jeżeli uzytkownik nie ma żadnej zainstalowanej instancji!
     QTimer::singleShot(500, this, [this]() {
         if (APPLICATION->instances()->count() == 0) {
-            QString myModpackUrl = "https://drive.google.com/file/d/1CW3qmrIryZPwXgcJD4DIKjF65q6mmMX2/view?usp=sharing"; 
+            QString myModpackUrl = "https://drive.google.com/file/d/1PMMLqT7TrT4up01WtbUAeYrhKD5oXibh/view?usp=sharing";
             QUrl downloadUrl(myModpackUrl);
-            
+
             InstanceImportTask* creationTask = new InstanceImportTask(downloadUrl, this, QMap<QString, QString>());
-            creationTask->setName("MTcube SMP");
+            creationTask->setName("MTcubeSMP");
             creationTask->setGroup("");
             creationTask->setIcon("default");
 
